@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    RED.nodes.registerType("printr-print", {
+        category: "output",
+        color: "#e2600e",
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            name: { value: "" },
+            server: { value: "", type: "printr-config", required: true },
+        },
+        label: function () {
+            return this.name || "Printr print";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="printr-print">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="printr-print">
+    <p>Prints <code>msg.payload</code> on a Printr receipt printer.</p>
+    <ul>
+        <li>An object with a <code>blocks</code> array is sent as a ticket, for example
+        <code>{ "blocks": [{ "type": "title", "text": "Alarm" }] }</code>.</li>
+        <li>A string is printed as a single text block.</li>
+    </ul>
+    <p>The output keeps <code>msg.payload</code> and adds <code>msg.statusCode</code> and
+    <code>msg.printr</code> (<code>state</code>: printed, queued, stalled, or error).
+    A queued or stalled ticket is not an error: the printer gets it later.</p>
+</script>

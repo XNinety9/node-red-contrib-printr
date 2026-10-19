@@ -1,0 +1,36 @@
+{
+  "name": "node-red-contrib-printr",
+  "version": "0.1.0",
+  "description": "Node-RED nodes to print tickets on a Printr receipt printer (Epson TM-T88V)",
+  "keywords": [
+    "node-red",
+    "printr",
+    "receipt",
+    "printer",
+    "escpos"
+  ],
+  "license": "Apache-2.0",
+  "author": "X99",
+  "engines": {
+    "node": ">=18"
+  },
+  "node-red": {
+    "nodes": {
+      "printr-config": "printr-config.js",
+      "printr-print": "printr-print.js"
+    }
+  },
+  "files": [
+    "lib/",
+    "printr-config.js",
+    "printr-config.html",
+    "printr-print.js",
+    "printr-print.html"
+  ],
+  "scripts": {
+    "test": "node --test test/ticket.test.js"
+  },
+  "peerDependencies": {
+    "node-red": ">=3.0.0"
+  }
+}

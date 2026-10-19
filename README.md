@@ -1,33 +1,45 @@
 # node-red-contrib-printr
 
-Node-RED nodes to print on a [Printr](https://xninety9.github.io/Printr/) receipt printer
-(Epson TM-T88V). Printr runs on a Raspberry Pi and exposes a small HTTP API; these nodes call it.
+Node-RED nodes for a [Printr](https://xninety9.github.io/Printr/) receipt printer
+(Epson TM-T88V). Printr runs on a Raspberry Pi.
+
+You only configure the address of your Printr and its token. Each node does one thing.
+
+## Configuration
+
+**printr config** holds the server URL (for example `http://raspberrypi:8080`) and the token. The
+token is the `PRINTR_TOKEN` of the Printr (in `/etc/printr.env` on a Raspberry Pi).
 
 ## Nodes
 
-- **printr config**: the Printr server (URL, for example `http://raspberrypi:8080`) and its token.
-- **printr print**: prints `msg.payload`.
-  - an object with a `blocks` array is sent as a ticket, for example
-    `{ "blocks": [{ "type": "title", "text": "Alarm" }] }`;
-  - a string is printed as a single text block.
+| Node | Input (`msg.payload`) | Does |
+| --- | --- | --- |
+| **printr print** | a ticket (`{ "blocks": [...] }`) or a text | prints a ticket |
+| **printr to-do** | a text (one item per line), a list, or `{ "title", "items" }` | prints a checklist with the date |
+| **printr shopping** | a text (one item per line) or a list | adds items to the shopping list |
+| **printr ticket** (saved) | nothing needed: the name is set in the node, or in `msg.preset` | prints a ticket saved in the Printr |
+| **printr status** | nothing needed | reads the state: `printer_ready`, `queued`, `version` |
 
-The output keeps `msg.payload` and adds:
+A ticket saved in the Printr is visible to the node only if its owner shared it.
 
-- `msg.statusCode`: the HTTP status returned by Printr;
-- `msg.printr.state`: `printed`, `queued` or `stalled`. A queued ticket waits for the printer to come
-  back, and a stalled one waits for the cover or the paper: neither is an error.
+Every node sends its messages on, with `msg.printr` set to:
 
-Errors go to the Node-RED debug panel, and the node shows the reason under its name.
+- `state`: `printed`, `queued`, `stalled`, `ok` or `error`. A queued or stalled ticket is not an
+  error: the printer gets it later.
+- `message`: a short description, also shown under the node;
+- `errors`: the blocks that failed, for a ticket.
+
+The status node puts the state of the Printr in `msg.payload`.
 
 ## Example
 
-[`examples/printr-tickets.json`](examples/printr-tickets.json) is a flow with a text message and a
-ticket. Import it with **Menu → Import**, then set the URL and the token in its printr config node.
+[`examples/printr-tickets.json`](examples/printr-tickets.json) is a flow with one inject per node.
+Import it with **Menu → Import**, then set the URL and the token in its printr config node.
 
 ## Requirements
 
 - Node-RED 3 or later, on Node.js 18 or later.
-- A Printr server with a token: start it with `--token` or `PRINTR_TOKEN`.
+- A Printr server with a token.
 
 ## Installation
 
@@ -43,8 +55,8 @@ npm install node-red-contrib-printr
 npm test
 ```
 
-The tests cover the logic that turns the payload into a ticket and reads Printr's answer. They do not
-need Node-RED or a printer.
+The tests cover the payload conversions, the answers of Printr and the requests sent to it, against a
+fake server. They do not need Node-RED or a printer.
 
 ## License
 

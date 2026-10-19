@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType("printr-status", {
+        category: "function",
+        color: "#e2600e",
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            name: { value: "" },
+            server: { value: "", type: "printr-config", required: true },
+        },
+        label: function () {
+            return this.name || "Printr status";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="printr-status">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="printr-status">
+    <p>Reads the state of the Printr. <code>msg.payload</code> becomes the status:
+    <code>printer_ready</code>, <code>queued</code> (tickets waiting), <code>version</code>.</p>
+</script>

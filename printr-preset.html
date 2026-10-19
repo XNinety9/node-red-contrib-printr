@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    RED.nodes.registerType("printr-preset", {
+        category: "output",
+        color: "#e2600e",
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            name: { value: "" },
+            server: { value: "", type: "printr-config", required: true },
+            preset: { value: "" },
+        },
+        label: function () {
+            return this.name || this.preset || "Printr ticket";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="printr-preset">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-preset"><i class="fa fa-ticket"></i> Ticket</label>
+        <input type="text" id="node-input-preset" placeholder="Name or id of a shared ticket">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="printr-preset">
+    <p>Prints a ticket saved in the Printr, by its name or its id. <code>msg.preset</code> overrides
+    the field above.</p>
+    <p>Only the tickets shared by their owner are visible to the node.</p>
+</script>

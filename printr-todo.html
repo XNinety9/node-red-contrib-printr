@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    RED.nodes.registerType("printr-todo", {
+        category: "output",
+        color: "#e2600e",
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            name: { value: "" },
+            server: { value: "", type: "printr-config", required: true },
+        },
+        label: function () {
+            return this.name || "Printr to-do";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="printr-todo">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="printr-todo">
+    <p>Prints a checklist with the date. <code>msg.payload</code> is:</p>
+    <ul>
+        <li>a text, one item per line;</li>
+        <li>a list, one item per element;</li>
+        <li>an object <code>{ "title": "Shopping", "items": ["milk", "bread"] }</code>.</li>
+    </ul>
+</script>

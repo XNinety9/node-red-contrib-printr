@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType("printr-shopping", {
+        category: "output",
+        color: "#e2600e",
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            name: { value: "" },
+            server: { value: "", type: "printr-config", required: true },
+        },
+        label: function () {
+            return this.name || "Printr shopping";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="printr-shopping">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="printr-shopping">
+    <p>Adds items to the shopping list of the Printr. <code>msg.payload</code> is a text with one item
+    per line, or a list.</p>
+</script>

@@ -58,6 +58,15 @@ npm test
 The tests cover the payload conversions, the answers of Printr and the requests sent to it, against a
 fake server. They do not need Node-RED or a printer.
 
+## Releasing
+
+1. Bump `version` in `package.json` and add its entry to [`CHANGELOG.md`](CHANGELOG.md).
+2. Commit, then push a tag with the same version: `git tag v0.2.1 && git push origin v0.2.1`.
+
+The release workflow checks that the tag matches `package.json`, runs the tests, publishes to npm
+with provenance (npm trusted publishing, no token) and creates the GitHub release from the changelog.
+The Node-RED flow library picks up the new npm version by itself.
+
 ## License
 
 Apache License 2.0, like Printr.

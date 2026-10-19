@@ -11,6 +11,14 @@
   ],
   "license": "Apache-2.0",
   "author": "X99",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XNinety9/node-red-contrib-printr.git"
+  },
+  "homepage": "https://github.com/XNinety9/node-red-contrib-printr#readme",
+  "bugs": {
+    "url": "https://github.com/XNinety9/node-red-contrib-printr/issues"
+  },
   "engines": {
     "node": ">=18"
   },

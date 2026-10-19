@@ -1,0 +1,96 @@
+[
+    {
+        "id": "printr-example-tab",
+        "type": "tab",
+        "label": "Printr examples",
+        "disabled": false,
+        "info": "Two inject nodes: a plain text message and a ticket built from blocks. Set the URL and the token in the printr config node."
+    },
+    {
+        "id": "printr-example-config",
+        "type": "printr-config",
+        "name": "Printr",
+        "url": "http://raspberrypi:8080"
+    },
+    {
+        "id": "printr-example-text",
+        "type": "inject",
+        "z": "printr-example-tab",
+        "name": "Text",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello from Node-RED",
+        "payloadType": "str",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "printr-example-print"
+            ]
+        ]
+    },
+    {
+        "id": "printr-example-ticket",
+        "type": "inject",
+        "z": "printr-example-tab",
+        "name": "Ticket",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"blocks\":[{\"type\":\"title\",\"text\":\"Alarm\"},{\"type\":\"text\",\"text\":\"Door opened at 14:32\"}]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "printr-example-print"
+            ]
+        ]
+    },
+    {
+        "id": "printr-example-print",
+        "type": "printr-print",
+        "z": "printr-example-tab",
+        "name": "Print",
+        "server": "printr-example-config",
+        "x": 380,
+        "y": 140,
+        "wires": [
+            [
+                "printr-example-debug"
+            ]
+        ]
+    },
+    {
+        "id": "printr-example-debug",
+        "type": "debug",
+        "z": "printr-example-tab",
+        "name": "Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "printr",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 140,
+        "wires": []
+    }
+]

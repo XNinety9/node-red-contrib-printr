@@ -19,6 +19,11 @@ The output keeps `msg.payload` and adds:
 
 Errors go to the Node-RED debug panel, and the node shows the reason under its name.
 
+## Example
+
+[`examples/printr-tickets.json`](examples/printr-tickets.json) is a flow with a text message and a
+ticket. Import it with **Menu → Import**, then set the URL and the token in its printr config node.
+
 ## Requirements
 
 - Node-RED 3 or later, on Node.js 18 or later.
